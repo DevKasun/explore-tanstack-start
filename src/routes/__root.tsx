@@ -1,4 +1,3 @@
-// src/routes/__root.tsx
 /// <reference types="vite/client" />
 import React, { type ReactNode } from 'react';
 import {
@@ -7,6 +6,7 @@ import {
 	HeadContent,
 	Scripts,
 } from '@tanstack/react-router';
+import appCSS from '../styles/app.css?url';
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -19,9 +19,10 @@ export const Route = createRootRoute({
 				content: 'width=device-width, initial-scale=1',
 			},
 			{
-				title: 'TanStack Start Starter',
+				title: 'Exploring TanStack Start',
 			},
 		],
+		links: [{ rel: 'stylesheet', href: appCSS }],
 	}),
 	component: RootComponent,
 });
@@ -40,7 +41,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
+			<body className='bg-gradient-to-l from-orange-500 to-yellow-500'>
 				{children}
 				<Scripts />
 			</body>
