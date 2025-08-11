@@ -38,9 +38,15 @@ function Home() {
 						)}
 						<div className='flex flex-col items-center justify-center'>
 							<p className='font-bold'>Nature Type</p>
-							{/* {member.natureType.map((nature, index) => (
-								<span key={index}>{nature}</span>
-							))} */}
+							{member.natureType &&
+								member.natureType.map((nature, index) => (
+									<span
+										key={index}
+										className='px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'
+									>
+										{nature}
+									</span>
+								))}
 						</div>
 					</div>
 				);
