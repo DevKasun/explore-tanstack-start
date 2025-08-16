@@ -48,6 +48,25 @@ function Home() {
 									</span>
 								))}
 						</div>
+						<div className='flex flex-col items-center justify-center'>
+							<p className='font-bold'>Personal</p>
+							<div className='flex flex-col items-center justify-center'>
+								{member.personal &&
+									member.personal.classification && (
+										<span className='px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'>
+											{member.personal.classification}
+										</span>
+									)}
+							</div>
+							<div className='flex flex-col items-center justify-center'>
+								{member.personal &&
+									member.personal.kekkeiGenkai && (
+										<span className='px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'>
+											{member.personal.kekkeiGenkai}
+										</span>
+									)}
+							</div>
+						</div>
 					</div>
 				);
 			})}
