@@ -2,10 +2,6 @@ import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import { AkatsukiMember } from '~/types';
 
-export const Route = createFileRoute('/')({
-	component: Home,
-});
-
 export const getAkatsuki = createServerFn({
 	method: 'GET',
 }).handler(async () => {
@@ -15,6 +11,10 @@ export const getAkatsuki = createServerFn({
 });
 
 const akatsuki = await getAkatsuki();
+
+export const Route = createFileRoute('/')({
+	component: Home,
+});
 
 function Home() {
 	console.log(akatsuki);

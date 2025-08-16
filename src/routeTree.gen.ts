@@ -8,39 +8,89 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createServerRootRoute } from '@tanstack/react-start/server'
+
 import { Route as rootRouteImport } from './routes/__root'
+import {
+  Route as ServerRouteRouteImport,
+  ServerRoute as ServerRouteServerRouteImport,
+} from './routes/server-route'
 import { Route as IndexRouteImport } from './routes/index'
 
+const rootServerRouteImport = createServerRootRoute()
+
+const ServerRouteRoute = ServerRouteRouteImport.update({
+  id: '/server-route',
+  path: '/server-route',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServerRouteServerRoute = ServerRouteServerRouteImport.update({
+  id: '/server-route',
+  path: '/server-route',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/server-route': typeof ServerRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/server-route': typeof ServerRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/server-route': typeof ServerRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/server-route'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/server-route'
+  id: '__root__' | '/' | '/server-route'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ServerRouteRoute: typeof ServerRouteRoute
+}
+export interface FileServerRoutesByFullPath {
+  '/server-route': typeof ServerRouteServerRoute
+}
+export interface FileServerRoutesByTo {
+  '/server-route': typeof ServerRouteServerRoute
+}
+export interface FileServerRoutesById {
+  __root__: typeof rootServerRouteImport
+  '/server-route': typeof ServerRouteServerRoute
+}
+export interface FileServerRouteTypes {
+  fileServerRoutesByFullPath: FileServerRoutesByFullPath
+  fullPaths: '/server-route'
+  fileServerRoutesByTo: FileServerRoutesByTo
+  to: '/server-route'
+  id: '__root__' | '/server-route'
+  fileServerRoutesById: FileServerRoutesById
+}
+export interface RootServerRouteChildren {
+  ServerRouteServerRoute: typeof ServerRouteServerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/server-route': {
+      id: '/server-route'
+      path: '/server-route'
+      fullPath: '/server-route'
+      preLoaderRoute: typeof ServerRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -50,10 +100,28 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+declare module '@tanstack/react-start/server' {
+  interface ServerFileRoutesByPath {
+    '/server-route': {
+      id: '/server-route'
+      path: '/server-route'
+      fullPath: '/server-route'
+      preLoaderRoute: typeof ServerRouteServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+  }
+}
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ServerRouteRoute: ServerRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+const rootServerRouteChildren: RootServerRouteChildren = {
+  ServerRouteServerRoute: ServerRouteServerRoute,
+}
+export const serverRouteTree = rootServerRouteImport
+  ._addFileChildren(rootServerRouteChildren)
+  ._addFileTypes<FileServerRouteTypes>()
