@@ -60,10 +60,19 @@ function Home() {
 							</div>
 							<div className='flex flex-col items-center justify-center'>
 								{member.personal &&
-									member.personal.kekkeiGenkai && (
-										<span className='px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'>
-											{member.personal.kekkeiGenkai}
-										</span>
+									member.personal.kekkeiGenkai &&
+									Array.isArray(
+										member.personal.kekkeiGenkai
+									) &&
+									member.personal.kekkeiGenkai.map(
+										(ability, index) => (
+											<span
+												key={index}
+												className='px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full'
+											>
+												{ability}
+											</span>
+										)
 									)}
 							</div>
 						</div>
