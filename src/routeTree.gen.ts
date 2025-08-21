@@ -16,6 +16,7 @@ import {
   ServerRoute as ServerRouteServerRouteImport,
 } from './routes/server-route'
 import { Route as IndexRouteImport } from './routes/index'
+import { ServerRoute as ApiHelloServerRouteServerRouteImport } from './routes/api/hello-server-route'
 
 const rootServerRouteImport = createServerRootRoute()
 
@@ -34,6 +35,12 @@ const ServerRouteServerRoute = ServerRouteServerRouteImport.update({
   path: '/server-route',
   getParentRoute: () => rootServerRouteImport,
 } as any)
+const ApiHelloServerRouteServerRoute =
+  ApiHelloServerRouteServerRouteImport.update({
+    id: '/api/hello-server-route',
+    path: '/api/hello-server-route',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -62,24 +69,28 @@ export interface RootRouteChildren {
 }
 export interface FileServerRoutesByFullPath {
   '/server-route': typeof ServerRouteServerRoute
+  '/api/hello-server-route': typeof ApiHelloServerRouteServerRoute
 }
 export interface FileServerRoutesByTo {
   '/server-route': typeof ServerRouteServerRoute
+  '/api/hello-server-route': typeof ApiHelloServerRouteServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
   '/server-route': typeof ServerRouteServerRoute
+  '/api/hello-server-route': typeof ApiHelloServerRouteServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/server-route'
+  fullPaths: '/server-route' | '/api/hello-server-route'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/server-route'
-  id: '__root__' | '/server-route'
+  to: '/server-route' | '/api/hello-server-route'
+  id: '__root__' | '/server-route' | '/api/hello-server-route'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
   ServerRouteServerRoute: typeof ServerRouteServerRoute
+  ApiHelloServerRouteServerRoute: typeof ApiHelloServerRouteServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -109,6 +120,13 @@ declare module '@tanstack/react-start/server' {
       preLoaderRoute: typeof ServerRouteServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
+    '/api/hello-server-route': {
+      id: '/api/hello-server-route'
+      path: '/api/hello-server-route'
+      fullPath: '/api/hello-server-route'
+      preLoaderRoute: typeof ApiHelloServerRouteServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
   }
 }
 
@@ -121,6 +139,7 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
   ServerRouteServerRoute: ServerRouteServerRoute,
+  ApiHelloServerRouteServerRoute: ApiHelloServerRouteServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport
   ._addFileChildren(rootServerRouteChildren)
